@@ -1,0 +1,9 @@
+#/bin/env bash
+
+# See http://stackoverflow.com/a/12006837/3212907 for the approach
+
+for script in templates/*; do
+  "$script"
+done
+
+chmod +x bin/*
