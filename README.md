@@ -34,3 +34,7 @@ If this is a real disaster recovery and not just a fire drill, just restore to t
 # Deployment
 
 Variables are in `.envrc` and git-ignored. Check Lastpass for the values. Use `scripts/generate-scripts` to generate the scripts into `bin` using environment variables and deploy them with `scp -r bin eltern-sgh.de@ssh.strato.de:`.
+
+# TODO
+
+* Remove old backups (see for instance [this script](https://github.com/nischayn22/mw_backup/blob/master/backup.php#L67-L72))
