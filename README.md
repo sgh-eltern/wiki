@@ -1,4 +1,12 @@
-# Backing up a MediaWiki instance at Strato
+# MediaWiki at Strato
+
+# Deployment
+
+* `git clone` this repository
+* Copy `sample-config.yml` to `config.yml` and fill in the values (check Lastpass)
+* Get a recent Ruby and install bundler in it
+* Run `bundle exec rake` to generate the scripts and config into the `deployment` folder
+* Deploy the generated files with `scp -r deployment/* eltern-sgh.de@ssh.strato.de:`.
 
 # Backup
 
@@ -31,10 +39,24 @@ Pipe the most recent snapshot into the new DB that we use for restore. This is s
 
 If this is a real disaster recovery and not just a fire drill, just restore to the original database credentials and do not modify the `LocalSettings.php` after untaring it.
 
-# Deployment
+# TODO: Backup Rotation
 
-Variables are in `.envrc` and git-ignored. Check Lastpass for the values. Use `scripts/generate-scripts` to generate the scripts into `bin` using environment variables and deploy them with `scp -r bin eltern-sgh.de@ssh.strato.de:`.
+Strategy:
 
-# TODO
+1. if there is no backup for today yet, create it and put it into backup/daily
+1. delete files older than 7 days from backup/daily, so that we keep daily backups of the last seven days
 
-* Remove old backups (see for instance [this script](https://github.com/nischayn22/mw_backup/blob/master/backup.php#L67-L72))
+1. if it is the last day of the week, copy the backup into backup/weekly, too
+1. delete files older than one month from backup/weekly, so that we keep weekly backups of the last month
+
+1. if it is the last day of the month, copy the backup into backup/monthly, too
+1. delete files older than three months from backup/monthly, so that we keep monthly backups of the last three months
+
+1. if it is the last day of the year, copy the backup into backup/yearly, too
+1. delete files older than 10 years from backup/yearly, so that we keep yearly backups of the last ten years
+
+In bash, deletion would be something like this:
+
+```bash
+find backup/monthly/*.gz -maxdepth 1 -type f -mtime +92 -delete
+```
