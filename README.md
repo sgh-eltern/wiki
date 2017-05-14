@@ -1,5 +1,34 @@
 # MediaWiki at Strato
 
+# Manual Installation
+
+* Create a new SQL database and set a password. Store credentials in LastPass.
+* `ssh eltern-sgh.de@ssh.strato.de` and:
+  - Create folder /mediawiki
+  - Extract MediaWiki 1.28.1 into `mediawiki`
+* Generate and upload LocalSettings.php (see [Deployment](#deployment) below)
+
+In [Strato's admin console](https://strato.de/apps/CustomerService):
+
+* Map domain wiki.eltern-sgh.de to /mediawiki
+* Switch PHP version to 7.1
+
+Now follow the [MediaWiki install wizard](http://wiki.eltern-sgh.de):
+
+* Create a MediaWiki admin account. Store credentials in LastPass.
+* Set User rights profile to Authorized editors only
+* Upload the [logo](assets/assets/schickhardt.jpg)
+
+## Force Cantao to PHP 5.6
+
+Prepend the existing `geb3/.htaccess` in  with the following statement:
+
+```php
+# Force Strato's PHP to 5.6
+AddType application/x-httpd-php56 .php
+…
+```
+
 # Deployment
 
 * `git clone` this repository
