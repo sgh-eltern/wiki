@@ -10,8 +10,8 @@
 
 In [Strato's admin console](https://strato.de/apps/CustomerService):
 
-* Map domain wiki.eltern-sgh.de to /mediawiki
-* Switch PHP version to 7.1
+* In _Domains / Domainverwaltung_, map domain `wiki.eltern-sgh.de` to `/mediawiki` (Strato lists this as "Umleitung: (Intern) /mediawiki/")
+* In _Datenbanken und Webspace / PHP-Version einstellen_, switch the PHP version to `7.1`
 
 Now follow the [MediaWiki install wizard](http://wiki.eltern-sgh.de):
 
@@ -21,7 +21,7 @@ Now follow the [MediaWiki install wizard](http://wiki.eltern-sgh.de):
 
 ## Force Cantao to PHP 5.6
 
-Prepend the existing `geb3/.htaccess` in  with the following statement:
+Prepend the existing `geb3/.htaccess` with the following statement:
 
 ```php
 # Force Strato's PHP to 5.6
