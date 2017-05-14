@@ -2,22 +2,24 @@
 
 # Manual Installation
 
-1. `ssh eltern-sgh.de@ssh.strato.de` and:
-  - Create folder /mediawiki
-  - Extract MediaWiki 1.28.1 into `mediawiki`
+1. `ssh eltern-sgh.de@ssh.strato.de` and
+
+    - Create folder /mediawiki
+    - Extract MediaWiki 1.28.1 into `mediawiki`
 
 1. In [Strato's admin console](https://strato.de/apps/CustomerService):
 
-  * Create a new SQL database and set a password. Store credentials in LastPass.
-  * In _Domains / Domainverwaltung_, map domain `wiki.eltern-sgh.de` to `/mediawiki` (Strato lists this as "Umleitung: (Intern) /mediawiki/")
-  * In _Datenbanken und Webspace / PHP-Version einstellen_, switch the PHP version to `7.1`
+    * Create a new SQL database and set a password. Store credentials in LastPass.
+    * In _Domains / Domainverwaltung_, map domain `wiki.eltern-sgh.de` to `/mediawiki` (Strato lists this as "Umleitung: (Intern) /mediawiki/")
+    * In _Datenbanken und Webspace / PHP-Version einstellen_, switch the PHP version to `7.1`
 
 1. Generate and upload LocalSettings.php (see [Deployment](#deployment) below).
 
 1. Follow the [MediaWiki install wizard](http://wiki.eltern-sgh.de):
-  - Create a MediaWiki admin account. Store credentials in LastPass.
-  - Set User rights profile to Authorized editors only
-  - Upload the [logo](assets/schickhardt.jpg)
+
+    - Create a MediaWiki admin account. Store credentials in LastPass.
+    - Set User rights profile to Authorized editors only
+    - Upload the [logo](assets/schickhardt.jpg)
 
 # Deployment
 
