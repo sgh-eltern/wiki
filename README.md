@@ -2,32 +2,22 @@
 
 # Manual Installation
 
-* Create a new SQL database and set a password. Store credentials in LastPass.
-* `ssh eltern-sgh.de@ssh.strato.de` and:
+1. `ssh eltern-sgh.de@ssh.strato.de` and:
   - Create folder /mediawiki
   - Extract MediaWiki 1.28.1 into `mediawiki`
-* Generate and upload LocalSettings.php (see [Deployment](#deployment) below)
 
-In [Strato's admin console](https://strato.de/apps/CustomerService):
+1. In [Strato's admin console](https://strato.de/apps/CustomerService):
 
-* In _Domains / Domainverwaltung_, map domain `wiki.eltern-sgh.de` to `/mediawiki` (Strato lists this as "Umleitung: (Intern) /mediawiki/")
-* In _Datenbanken und Webspace / PHP-Version einstellen_, switch the PHP version to `7.1`
+  * Create a new SQL database and set a password. Store credentials in LastPass.
+  * In _Domains / Domainverwaltung_, map domain `wiki.eltern-sgh.de` to `/mediawiki` (Strato lists this as "Umleitung: (Intern) /mediawiki/")
+  * In _Datenbanken und Webspace / PHP-Version einstellen_, switch the PHP version to `7.1`
 
-Now follow the [MediaWiki install wizard](http://wiki.eltern-sgh.de):
+1. Generate and upload LocalSettings.php (see [Deployment](#deployment) below).
 
-* Create a MediaWiki admin account. Store credentials in LastPass.
-* Set User rights profile to Authorized editors only
-* Upload the [logo](assets/schickhardt.jpg)
-
-## Force Cantao to PHP 5.6
-
-Prepend the existing `geb3/.htaccess` with the following statement:
-
-```php
-# Force Strato's PHP to 5.6
-AddType application/x-httpd-php56 .php
-…
-```
+1. Follow the [MediaWiki install wizard](http://wiki.eltern-sgh.de):
+  - Create a MediaWiki admin account. Store credentials in LastPass.
+  - Set User rights profile to Authorized editors only
+  - Upload the [logo](assets/schickhardt.jpg)
 
 # Deployment
 
@@ -88,4 +78,16 @@ In bash, deletion would be something like this:
 
 ```bash
 find backup/monthly/*.gz -maxdepth 1 -type f -mtime +92 -delete
+```
+
+# Compatibility
+
+## Force Cantao to PHP 5.6
+
+The version of Cantao that is currently in use does not work with PHP 7. Work around this by prepending `geb3/.htaccess` with the following statement:
+
+```php
+# Force Strato's PHP to 5.6
+AddType application/x-httpd-php56 .php
+…
 ```
