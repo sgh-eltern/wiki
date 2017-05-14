@@ -17,7 +17,7 @@ Now follow the [MediaWiki install wizard](http://wiki.eltern-sgh.de):
 
 * Create a MediaWiki admin account. Store credentials in LastPass.
 * Set User rights profile to Authorized editors only
-* Upload the [logo](assets/assets/schickhardt.jpg)
+* Upload the [logo](assets/schickhardt.jpg)
 
 ## Force Cantao to PHP 5.6
 
