@@ -43,7 +43,7 @@ task 'deployment' => TARGET_FILES + [:shellcheck]
 
 desc 'Run shellcheck for generated shell scripts'
 task 'shellcheck': TARGET_FILES do |file|
-  sh %(shellcheck deployment/bin/*) do |ok, process_status|
+  sh %(shellcheck deployment/bin/*.sh) do |ok, process_status|
     if !ok
       fail 'The shellcheck findings listed above need to be fixed.'
     end

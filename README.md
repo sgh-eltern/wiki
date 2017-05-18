@@ -37,13 +37,13 @@ Strato does this for us; use `mysqlbackups "${source_db}"` to see a list.
 
 ## Filesystem
 
-`~/bin/backup-wiki` is scheduled as cron job via the web interface
+`~/bin/backup-wiki.sh` is scheduled as cron job via the web interface
 
 # Restore
 
 ## Database
 
-Pipe the most recent snapshot into the new DB that we use for restore. This is stored as script at `~/bin/restore-mediawiki-snapshot`.
+Pipe the most recent snapshot into the new DB that we use for restore. This is stored as script at `~/bin/restore-mediawiki-snapshot.sh`.
 
 ## Filesystem
 
@@ -68,7 +68,7 @@ Strategy:
 1. Delete files older than 7 days from `backup/daily`, so that we keep daily backups of the last seven days
 
 1. If it is the last day of the week, copy the backup into `backup/weekly`, too
-1. delete files older than one month from `backup/weekly`, so that we keep weekly backups of the last month
+1. Delete files older than one month from `backup/weekly`, so that we keep weekly backups of the last month
 
 1. If it is the last day of the month, copy the backup into `backup/monthly`, too
 1. Delete files older than three months from `backup/monthly`, so that we keep monthly backups of the last three months
