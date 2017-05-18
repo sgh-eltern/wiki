@@ -12,5 +12,5 @@ mysqlbackups "<%= config['source_db'] %>"
 echo
 echo Content of backup directory:
 echo
-ls -ltr backup
+ls -ltr backup/*
 echo
