@@ -2,8 +2,8 @@
 
 # Generated from <%= template %>
 
-mkdir -p backup
-tar --create --exclude-vcs --gzip --file "backup/mediawiki_$(date "+%Y-%m-%d_%H%M").tar.gz" mediawiki
+mkdir -p backup/{daily,weekly,monthly,yearly}
+tar --create --exclude-vcs --gzip --file "backup/daily/mediawiki_$(date "+%Y-%m-%d_%H%M").tar.gz" mediawiki
 
 # Report
 echo Available database snapshots:
