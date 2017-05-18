@@ -6,10 +6,12 @@ require 'rake/clean'
 require 'pathname'
 require 'yaml'
 require 'rubocop/rake_task'
+require 'rspec/core/rake_task'
 
-task default: ['rubocop:auto_correct', :deployment]
+task default: ['rubocop:auto_correct', :spec, :deployment]
 
 RuboCop::RakeTask.new
+RSpec::Core::RakeTask.new
 
 DEPLOYMENT_DIR = 'deployment'
 directory DEPLOYMENT_DIR
