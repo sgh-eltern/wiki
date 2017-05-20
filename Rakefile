@@ -5,20 +5,18 @@ require 'erb'
 require 'rake/clean'
 require 'pathname'
 require 'yaml'
-require 'rubocop/rake_task'
 require 'rspec/core/rake_task'
 
-task default: ['rubocop:auto_correct', :spec, :deployment]
+task default: [:spec, :deployment]
 
-RuboCop::RakeTask.new
 RSpec::Core::RakeTask.new
 
-DEPLOYMENT_DIR = 'deployment'
+DEPLOYMENT_DIR = 'deployment'.freeze
 directory DEPLOYMENT_DIR
 CLOBBER.include(DEPLOYMENT_DIR)
 
 TEMPLATE_DIR = Pathname('templates')
-TEMPLATES = FileList.new(TEMPLATE_DIR / '**/*') do |list|
+TEMPLATES = FileList.new(TEMPLATE_DIR.join('**/*')) do |list|
   list.exclude do |candidate|
     Pathname(candidate).directory?
   end
@@ -36,7 +34,7 @@ TARGET_FILES.each do |target|
   desc "Build #{target} from #{template}"
   file target => [template, target_dir] do
     warn "Rendering #{template} into #{target}"
-    Pathname(target).write(ERB.new(template.read).result(binding))
+    File.write(target, ERB.new(template.read).result(binding))
   end
 end
 
@@ -44,7 +42,7 @@ desc 'Render files to deploy'
 task 'deployment' => TARGET_FILES + [:shellcheck]
 
 desc 'Run shellcheck for generated shell scripts'
-task 'shellcheck': TARGET_FILES do |file|
+task 'shellcheck' => TARGET_FILES do |file|
   sh %(shellcheck deployment/bin/*.sh) do |ok, process_status|
     if !ok
       fail 'The shellcheck findings listed above need to be fixed.'

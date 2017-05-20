@@ -11,8 +11,8 @@ describe SGH::BackupRepository do
   let(:now) { Time.now }
   let(:today) { now.to_date }
   let(:repository_folder) { Pathname(Dir.mktmpdir) }
-  let(:daily_folder) { (repository_folder / 'daily').tap(&:mkpath) }
-  let(:todays_backup) { daily_folder / "backup-#{now.strftime('%Y-%m-%d')}.txt" }
+  let(:daily_folder) { repository_folder.join('daily').tap(&:mkpath) }
+  let(:todays_backup) { daily_folder.join("backup-#{now.strftime('%Y-%m-%d')}.txt") }
 
   before do
     Timecop.freeze(now)
@@ -28,19 +28,19 @@ describe SGH::BackupRepository do
   end
 
   def fake_daily_backup(day)
-    fake_backup(daily_folder / "backup-#{day.strftime('%Y-%m-%d')}.txt", day)
+    fake_backup(daily_folder.join("backup-#{day.strftime('%Y-%m-%d')}.txt"), day)
   end
 
   def fake_weekly_backup(day)
-    fake_backup(weekly_folder / "backup-#{day.strftime('%Y-%m-%d')}.txt", day)
+    fake_backup(weekly_folder.join("backup-#{day.strftime('%Y-%m-%d')}.txt"), day)
   end
 
   def fake_monthly_backup(day)
-    fake_backup(monthly_folder / "backup-#{day.strftime('%Y-%m-%d')}.txt", day)
+    fake_backup(monthly_folder.join("backup-#{day.strftime('%Y-%m-%d')}.txt"), day)
   end
 
   def fake_backup(file, day)
-    file.write(SecureRandom.uuid)
+    File.write(file, SecureRandom.uuid)
     FileUtils.touch(file, mtime: Time.utc(day.year, day.month, day.day, 0, 15, 0))
   end
 
@@ -76,7 +76,7 @@ describe SGH::BackupRepository do
 
   context 'when it is the last day of the week' do
     let(:now) { Time.utc(2015, 7, 26, 0, 25, 0) }
-    let(:weekly_folder) { (repository_folder / 'weekly').tap(&:mkpath) }
+    let(:weekly_folder) { repository_folder.join('weekly').tap(&:mkpath) }
 
     before do
       fake_daily_backup(today)
@@ -118,7 +118,7 @@ describe SGH::BackupRepository do
 
   context 'when it is the last day of the month' do
     let(:now) { Time.utc(2014, 6, 30, 0, 25, 0) }
-    let(:monthly_folder) { (repository_folder / 'monthly').tap(&:mkpath) }
+    let(:monthly_folder) { repository_folder.join('monthly').tap(&:mkpath) }
 
     before do
       fake_daily_backup(today)
