@@ -6,5 +6,14 @@
 require_relative 'backup_repository'
 require 'pathname'
 
-repo = SGH::BackupRepository.new(Pathname('backup').expand_path)
-repo.retain!
+case ARGV.size
+when 0
+  warn 'Error: Missing argument for the root folder'
+  exit 1
+when 1
+  repo = SGH::BackupRepository.new(Pathname(ARGV.first))
+  repo.retain!
+else
+  warn 'Error: Excess arguments. Expecting exactly one argument.'
+  exit 2
+end
