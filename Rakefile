@@ -7,7 +7,7 @@ require 'pathname'
 require 'yaml'
 require 'rspec/core/rake_task'
 
-task default: [:spec, :deployment]
+task default: [:spec, :render]
 
 RSpec::Core::RakeTask.new
 
@@ -38,9 +38,6 @@ TARGET_FILES.each do |target|
   end
 end
 
-desc 'Render files to deploy'
-task 'deployment' => TARGET_FILES + [:shellcheck]
-
 desc 'Run shellcheck for generated shell scripts'
 task 'shellcheck' => TARGET_FILES do |file|
   sh %(shellcheck deployment/bin/*.sh) do |ok, process_status|
@@ -48,6 +45,14 @@ task 'shellcheck' => TARGET_FILES do |file|
       fail 'The shellcheck findings listed above need to be fixed.'
     end
   end
+end
+
+desc 'Render all target files'
+task 'render' => TARGET_FILES + [:shellcheck]
+
+desc 'Deploy all files to the Strato box'
+task 'deploy' => :render do
+  sh 'scp -r deployment/* eltern-sgh.de@ssh.strato.de:'
 end
 
 def config

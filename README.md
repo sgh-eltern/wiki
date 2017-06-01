@@ -26,8 +26,7 @@
 * `git clone` this repository
 * Copy `sample-config.yml` to `config.yml` and fill in the values (check Lastpass)
 * Get a recent Ruby and install bundler in it
-* Run `bundle exec rake` to generate the scripts and config into the `deployment` folder
-* Deploy the generated files with `scp -r deployment/* eltern-sgh.de@ssh.strato.de:`.
+* Run `bundle exec rake deploy` to generate the scripts and config into the `deployment` folder and deploy them to the Strato box.
 
 # Backup
 
