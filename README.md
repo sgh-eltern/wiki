@@ -1,5 +1,7 @@
 # MediaWiki at Strato
 
+[![Build Status](https://travis-ci.org/sgh-eltern/wiki.svg?branch=master)](https://travis-ci.org/sgh-eltern/wiki)
+
 # Manual Installation
 
 1. `ssh eltern-sgh.de@ssh.strato.de` and
