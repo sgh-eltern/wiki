@@ -3,6 +3,7 @@
 require_relative '../templates/bin/backup_repository'
 require 'digest'
 require 'pathname'
+require 'tmpdir'
 require 'timecop'
 require 'securerandom'
 
