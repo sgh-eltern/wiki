@@ -7,7 +7,7 @@ require 'pathname'
 require 'yaml'
 require 'rspec/core/rake_task'
 
-task default: [:spec, :render]
+task default: [:spec, :render, "ci:shellcheck"]
 
 RSpec::Core::RakeTask.new
 
@@ -57,4 +57,15 @@ end
 
 def config
   @config ||= YAML.load_file('config.yml')
+end
+
+namespace :ci do
+  desc 'Run shellcheck for CI scripts'
+  task 'shellcheck' do |file|
+    sh %(shellcheck --exclude SC2154 ci/*/task.sh) do |ok, process_status|
+      if !ok
+        fail 'The shellcheck findings listed above need to be fixed.'
+      end
+    end
+  end
 end

@@ -1,0 +1,48 @@
+# CI Tasks
+
+## General Notes
+
+* Base image is in `Dockerfile` and automatically built on [cloud.docker.com](https://cloud.docker.com/app/sghakinternet/repository/docker/sghakinternet/wiki)
+
+* Concourse on Scaleway has issues with `fly execute` and `fly intercept`; we just use a local Concourse installation called `lite` for testing:
+
+  ```bash
+  export SSH_KEY="$(lpass show --notes SGH/ssh.strato.de)"
+  fly execute                          \
+    --target lite                      \
+    --config ci/fetch-backup/task.yml  \
+    --input ci-tasks=.                  
+  ```
+
+* Backup user authenticates with private key:
+  - Keys were generated with `ssh-keygen -t rsa -b 4096 -C "backup-pipeline@eltern-sgh.de" -f id_backup-pipeline`
+  - Private key added as note to Lastpass entry 'SGH/ssh.strato.de'
+  - Public key added to `~/.ssh/authorized_keys` in ssh.strato.de with `ssh-copy-id -i id_backup-pipeline.pub eltern-sgh.de@ssh.strato.de`
+
+## Operating the Pipeline
+
+Copy `sample-credentials.yml` to `credentials.yml` and fill in the values. Do not add this to the repo!
+
+```bash
+$ fly login \
+    --target your-alias \
+    --concourse-url https://ci.example.com/
+
+$ fly set-pipeline \
+    --target your-alias \
+    --pipeline "SGH Backup" \
+    --config fixup-tweets.yml \
+    --load-vars-from credentials.yml
+
+$ fly unpause-pipeline \
+    --target your-alias \
+    --pipeline "SGH Backup"
+```
+
+If necessary, the pipeline can be destroyed with:
+
+```bash
+fly destroy-pipeline \
+    --target your-alias \
+    --pipeline "SGH Backup"
+```
