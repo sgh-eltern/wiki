@@ -51,7 +51,7 @@ resources:
     source:
       uri: https://github.com/sgh-eltern/wiki.git
       paths: [ ci/* ]
-      branch: wip-ci-pipeline
+      branch: master
 
   - name: nightly
     type: time
