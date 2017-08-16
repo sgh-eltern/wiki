@@ -30,13 +30,13 @@ $ fly login \
 
 $ fly set-pipeline \
     --target your-alias \
-    --pipeline "SGH Backup" \
-    --config fixup-tweets.yml \
+    --pipeline "SGH Wiki" \
+    --config wiki-pipeline.yml \
     --load-vars-from credentials.yml
 
 $ fly unpause-pipeline \
     --target your-alias \
-    --pipeline "SGH Backup"
+    --pipeline "SGH Wiki"
 ```
 
 If necessary, the pipeline can be destroyed with:
@@ -44,5 +44,5 @@ If necessary, the pipeline can be destroyed with:
 ```bash
 fly destroy-pipeline \
     --target your-alias \
-    --pipeline "SGH Backup"
+    --pipeline "SGH Wiki"
 ```
