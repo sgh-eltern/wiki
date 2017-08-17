@@ -44,9 +44,9 @@ $wgEmailAuthentication = true;
 ## Database settings
 $wgDBtype = "mysql";
 $wgDBserver = "rdbms.strato.de";
-$wgDBname = "<%= config['source_db'] %>";
-$wgDBuser = "<%= config['source_user'] %>";
-$wgDBpassword = "<%= config['source_password'] %>";
+$wgDBname = "<%= config['mediawiki']['source_db'] %>";
+$wgDBuser = "<%= config['mediawiki']['source_user'] %>";
+$wgDBpassword = "<%= config['mediawiki']['source_password'] %>";
 
 # MySQL specific settings
 $wgDBprefix = "";
@@ -88,14 +88,14 @@ $wgShellLocale = "en_US.utf8";
 # Site language code, should be one of the list in ./languages/data/Names.php
 $wgLanguageCode = "de";
 
-$wgSecretKey = "<%= config['secret_key'] %>";
+$wgSecretKey = "<%= config['mediawiki']['secret_key'] %>";
 
 # Changing this will log out all existing sessions.
 $wgAuthenticationTokenVersion = "1";
 
 # Site upgrade key. Must be set to a string (default provided) to turn on the
 # web installer while LocalSettings.php is in place
-$wgUpgradeKey = "<%= config['upgrade_key'] %>";
+$wgUpgradeKey = "<%= config['mediawiki']['upgrade_key'] %>";
 
 ## For attaching licensing metadata to pages, and displaying an
 ## appropriate copyright notice / icon. GNU Free Documentation

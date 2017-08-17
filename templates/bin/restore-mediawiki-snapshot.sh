@@ -3,15 +3,15 @@
 # generated from "<%= template %>"
 
 mysqldump \
-    --host="$(mysqlbackups "<%= config['source_db'] %>" | head -1)" \
-    --user="<%= config['source_user'] %>" \
-    --password="<%= config['source_password'] %>" \
-  "<%= config['source_db'] %>" \
+    --host="$(mysqlbackups "<%= config['mediawiki']['source_db'] %>" | head -1)" \
+    --user="<%= config['mediawiki']['source_user'] %>" \
+    --password="<%= config['mediawiki']['source_password'] %>" \
+  "<%= config['mediawiki']['source_db'] %>" \
 | mysql \
     --host=rdbms \
-    --user="<%= config['target_user'] %>" \
-    --password="<%= config['target_password'] %>" \
-  "<%= config['target_db'] %>"
+    --user="<%= config['mediawiki']['target_user'] %>" \
+    --password="<%= config['mediawiki']['target_password'] %>" \
+  "<%= config['mediawiki']['target_db'] %>"
 EOF
 
-chmod +x deployment/bin/"<%= config['self'] %>"
+chmod +x deployment/bin/"<%= config['mediawiki']['self'] %>"
