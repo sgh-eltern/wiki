@@ -126,3 +126,11 @@ backup_db \
   "<%= config['eltern-wp']['source_user'] %>" \
   "<%= config['eltern-wp']['source_password'] %>" \
   backup/eltern-wp-db
+
+backup_files freunde-wp backup/freunde-wp-files
+backup_db \
+  freunde-wp \
+  "<%= config['freunde-wp']['source_db'] %>" \
+  "<%= config['freunde-wp']['source_user'] %>" \
+  "<%= config['freunde-wp']['source_password'] %>" \
+  backup/freunde-wp-db
