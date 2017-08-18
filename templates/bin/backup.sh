@@ -43,52 +43,43 @@ dump_files(){
   BACKUP_FILE="${root}"/daily/"${src}"_$(date "+%Y-%m-%d_%H%M").tar.gz
 
   echo
-  echo "Creating daily backup as ${BACKUP_FILE} ..."
-  tar --create --exclude-vcs --gzip --file "${BACKUP_FILE}" "${src}"
+  echo "Creating daily backup for ${src} as ${BACKUP_FILE} ..."
+  tar \
+      --create \
+      --exclude "${src}/wp-content/backupwordpress-*-backups/*" \
+      --exclude-vcs \
+      --gzip \
+      --file \
+    "${BACKUP_FILE}" "${src}"
 
   register_latest "${BACKUP_FILE}" "${root}"
   echo ...done.
 }
 
-dump_eltern-wp_database(){
-  local root=${1?Missing argument for root folder}
+dump_database(){
+  local prefix="${1?Missing argument for the file prefix}"
+  local db="${2?Missing argument for the database name}"
+  local user="${3?Missing argument for the database user}"
+  local password="${4?Missing argument for the database password}"
+  local root="${5?Missing argument for root folder}"
 
-  DB_BACKUP_LATEST=$(mysqlbackups "<%= config['eltern-wp']['source_db'] %>" | head -1)
-  DB_BACKUP_FILE="${root}"/daily/eltern-wp-db_$(date "+%Y-%m-%d_%H%M").sql.gz
-
-  echo
-  echo "Saving latest database snapshot ${DB_BACKUP_LATEST} to ${DB_BACKUP_FILE}:"
-  mysqldump \
-      --add-drop-table \
-      --host="${DB_BACKUP_LATEST}" \
-      --user="<%= config['eltern-wp']['source_user'] %>" \
-      --password="<%= config['eltern-wp']['source_password'] %>" \
-    "<%= config['eltern-wp']['source_db'] %>" \
-  | gzip \
-  > "${DB_BACKUP_FILE}"
-
-  register_latest "${DB_BACKUP_FILE}" "${root}"
-  echo ...done.
-}
-
-dump_mediawiki_database(){
-  local root=${1?Missing argument for root folder}
-
-  DB_BACKUP_LATEST=$(mysqlbackups "<%= config['mediawiki']['source_db'] %>" | head -1)
-  DB_BACKUP_FILE="${root}"/daily/mediawiki-db_$(date "+%Y-%m-%d_%H%M").sql.gz
+  local latest_snapshot
+  latest_snapshot="$(mysqlbackups "$db" | head -1)"
+  local backup_file
+  backup_file="${root}"/daily/"${prefix}"-db_$(date "+%Y-%m-%d_%H%M").sql.gz
 
   echo
-  echo "Saving latest database snapshot ${DB_BACKUP_LATEST} to ${DB_BACKUP_FILE}:"
+  echo "Saving latest database snapshot ${latest_snapshot} to ${backup_file}:"
   mysqldump \
       --add-drop-table \
-      --host="${DB_BACKUP_LATEST}" \
-      --user="<%= config['mediawiki']['source_user'] %>" \
-      --password="<%= config['mediawiki']['source_password'] %>" \
-    "<%= config['mediawiki']['source_db'] %>" \
+      --host="${latest_snapshot}" \
+      --user="$user" \
+      --password="$password" \
+    "${db}" \
   | gzip \
-  > "${DB_BACKUP_FILE}"
+  > "${backup_file}"
 
-  register_latest "${DB_BACKUP_FILE}" "${root}"
+  register_latest "${backup_file}" "${root}"
   echo ...done.
 }
 
@@ -103,17 +94,35 @@ backup_files() {
 }
 
 backup_db(){
-  local key=${1?Missing argument for config key}
-  local root=${2?Missing argument for root folder}
+  local prefix="${1?Missing argument for the file prefix}"
+  local db="${2?Missing argument for the database name}"
+  local user="${3?Missing argument for the database user}"
+  local password="${4?Missing argument for the database password}"
+  local root="${5?Missing argument for root folder}"
 
   create_folders "${root}"
-  dump_"$key"_database "${root}"
+  dump_database \
+    "$prefix" \
+    "$db" \
+    "$user" \
+    "$password" \
+    "${root}"
   rotate_backups "${root}"
   list_backups "${root}"
 }
 
 backup_files mediawiki backup/mediawiki-files
-backup_db mediawiki backup/mediawiki-db
+backup_db \
+  mediawiki \
+  "<%= config['mediawiki']['source_db'] %>" \
+  "<%= config['mediawiki']['source_user'] %>" \
+  "<%= config['mediawiki']['source_password'] %>" \
+  backup/mediawiki-db
 
 backup_files eltern-wp backup/eltern-wp-files
-backup_db eltern-wp backup/eltern-wp-db
+backup_db \
+  eltern-wp \
+  "<%= config['eltern-wp']['source_db'] %>" \
+  "<%= config['eltern-wp']['source_user'] %>" \
+  "<%= config['eltern-wp']['source_password'] %>" \
+  backup/eltern-wp-db
