@@ -134,3 +134,11 @@ backup_db \
   "<%= config['freunde-wp']['source_user'] %>" \
   "<%= config['freunde-wp']['source_password'] %>" \
   backup/freunde-wp-db
+
+backup_files geb3 backup/geb3-files
+backup_db \
+  geb3 \
+  "<%= config['geb3']['source_db'] %>" \
+  "<%= config['geb3']['source_user'] %>" \
+  "<%= config['geb3']['source_password'] %>" \
+  backup/geb3-db
