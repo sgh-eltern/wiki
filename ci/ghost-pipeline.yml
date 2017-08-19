@@ -3,7 +3,7 @@ jobs:
     plan:
     - get: ci-tasks
       trigger: false
-    - get: Every Monday and Thursday
+    - get: Schedule for SGH Eltern
       trigger: true
     - task: Execute Test on Ghost Inspector
       file: ci-tasks/ci/fetch-result/task.yml
@@ -16,7 +16,7 @@ jobs:
     plan:
     - get: ci-tasks
       trigger: false
-    - get: Every Tuesday and Friday
+    - get: Schedule for SGH Wiki
       trigger: true
     - task: Execute Test on Ghost Inspector
       file: ci-tasks/ci/fetch-result/task.yml
@@ -29,7 +29,7 @@ jobs:
     plan:
     - get: ci-tasks
       trigger: false
-    - get: Every Wednesday and Saturday
+    - get: Schedule for GEB
       trigger: true
     - task: Execute Test on Ghost Inspector
       file: ci-tasks/ci/fetch-result/task.yml
@@ -41,8 +41,8 @@ jobs:
   - name: Test freunde-sgh.de
     plan:
     - get: ci-tasks
-    - get: Every Sunday
       trigger: false
+    - get: Schedule for Freunde
       trigger: true
     - task: Execute Test on Ghost Inspector
       file: ci-tasks/ci/fetch-result/task.yml
@@ -59,26 +59,36 @@ resources:
       paths: [ ci/* ]
       branch: master
 
-  - name: Every Monday and Thursday
-    type: time
-    source:
-      interval: 24h
-      days: [Monday, Thursday]
+  #            | Eltern | Wiki | Freunde | GEB
+  #  ----------|--------|------|---------|----
+  #  Monday    |   1    |   1  |    1    |
+  #  Truesday  |   1    |   1  |    1    |  1
+  #  Wednesday |   1    |      |    1    |  1
+  #  Thursday  |   1    |   1  |         |  1
+  #  Friday    |   1    |   1  |    1    |
+  #  Saturday  |        |   1  |         |  1
+  #  Sunday    |   1    |      |    1    |  1
 
-  - name: Every Tuesday and Friday
+  - name: Schedule for SGH Eltern
     type: time
     source:
       interval: 24h
-      days: [Tuesday, Friday]
+      days: [Monday, Tuesday, Wednesday, Thursday, Friday, Sunday]
 
-  - name: Every Wednesday and Saturday
+  - name: Schedule for SGH Wiki
     type: time
     source:
       interval: 24h
-      days: [Wednesday, Saturday]
+      days: [Monday, Tuesday, Thursday, Friday, Saturday]
 
-  - name: Every Sunday
+  - name: Schedule for GEB
     type: time
     source:
       interval: 24h
-      days: [Sunday]
+      days: [Tuesday, Wednesday, Thursday, Saturday, Sunday]
+
+  - name: Schedule for Freunde
+    type: time
+    source:
+      interval: 24h
+      days: [Monday, Wednesday, Saturday, Sunday]
