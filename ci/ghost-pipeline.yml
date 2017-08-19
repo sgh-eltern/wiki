@@ -6,7 +6,7 @@ jobs:
     - get: Every Monday and Thursday
       trigger: true
     - task: Execute Test on Ghost Inspector
-      file: ci-tasks/ci/curl/task.yml
+      file: ci-tasks/ci/fetch-result/task.yml
       params:
         url: https://api.ghostinspector.com/v1/suites/5980dea61599c8322646cba8/execute/?apiKey=((ghost.api-key))
 
@@ -17,7 +17,7 @@ jobs:
     - get: Every Tuesday and Friday
       trigger: true
     - task: Execute Test on Ghost Inspector
-      file: ci-tasks/ci/curl/task.yml
+      file: ci-tasks/ci/fetch-result/task.yml
       params:
         url: https://api.ghostinspector.com/v1/suites/5980e429b1c3a81c61f4d35b/execute/?apiKey=((ghost.api-key))
 
@@ -28,7 +28,7 @@ jobs:
     - get: Every Wednesday and Saturday
       trigger: true
     - task: Execute Test on Ghost Inspector
-      file: ci-tasks/ci/curl/task.yml
+      file: ci-tasks/ci/fetch-result/task.yml
       params:
         url: https://api.ghostinspector.com/v1/suites/5980f61fb1c3a81c61f4d6ac/execute/?apiKey=((ghost.api-key))
 
@@ -39,7 +39,7 @@ jobs:
     - get: Every Sunday
       trigger: true
     - task: Execute Test on Ghost Inspector
-      file: ci-tasks/ci/curl/task.yml
+      file: ci-tasks/ci/fetch-result/task.yml
       params:
         url: https://api.ghostinspector.com/v1/suites/5980f616b1c3a81c61f4d6ab/execute/?apiKey=((ghost.api-key))
 
