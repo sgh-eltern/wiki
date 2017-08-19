@@ -2,7 +2,7 @@ jobs:
   - name: Test sgh-eltern.de
     plan:
     - get: ci-tasks
-      trigger: true
+      trigger: false
     - get: Every Monday and Thursday
       trigger: true
     - task: Execute Test on Ghost Inspector
@@ -15,7 +15,7 @@ jobs:
   - name: Test wiki.eltern-sgh.de
     plan:
     - get: ci-tasks
-      trigger: true
+      trigger: false
     - get: Every Tuesday and Friday
       trigger: true
     - task: Execute Test on Ghost Inspector
@@ -28,7 +28,7 @@ jobs:
   - name: Test geb-herrenberg.de
     plan:
     - get: ci-tasks
-      trigger: true
+      trigger: false
     - get: Every Wednesday and Saturday
       trigger: true
     - task: Execute Test on Ghost Inspector
@@ -41,8 +41,8 @@ jobs:
   - name: Test freunde-sgh.de
     plan:
     - get: ci-tasks
-      trigger: true
     - get: Every Sunday
+      trigger: false
       trigger: true
     - task: Execute Test on Ghost Inspector
       file: ci-tasks/ci/fetch-result/task.yml
