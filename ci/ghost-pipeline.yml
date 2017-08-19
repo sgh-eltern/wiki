@@ -9,6 +9,8 @@ jobs:
       file: ci-tasks/ci/fetch-result/task.yml
       params:
         url: https://api.ghostinspector.com/v1/suites/5980dea61599c8322646cba8/execute/?apiKey=((ghost.api-key))
+    - task: Evaluate Test Results
+      file: ci-tasks/ci/evaluate-result/task.yml
 
   - name: Test wiki.eltern-sgh.de
     plan:
@@ -20,6 +22,8 @@ jobs:
       file: ci-tasks/ci/fetch-result/task.yml
       params:
         url: https://api.ghostinspector.com/v1/suites/5980e429b1c3a81c61f4d35b/execute/?apiKey=((ghost.api-key))
+    - task: Evaluate Test Results
+      file: ci-tasks/ci/evaluate-result/task.yml
 
   - name: Test geb-herrenberg.de
     plan:
@@ -31,6 +35,8 @@ jobs:
       file: ci-tasks/ci/fetch-result/task.yml
       params:
         url: https://api.ghostinspector.com/v1/suites/5980f61fb1c3a81c61f4d6ac/execute/?apiKey=((ghost.api-key))
+    - task: Evaluate Test Results
+      file: ci-tasks/ci/evaluate-result/task.yml
 
   - name: Test freunde-sgh.de
     plan:
@@ -42,6 +48,8 @@ jobs:
       file: ci-tasks/ci/fetch-result/task.yml
       params:
         url: https://api.ghostinspector.com/v1/suites/5980f616b1c3a81c61f4d6ab/execute/?apiKey=((ghost.api-key))
+    - task: Evaluate Test Results
+      file: ci-tasks/ci/evaluate-result/task.yml
 
 resources:
   - name: ci-tasks
