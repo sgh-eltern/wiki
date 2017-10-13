@@ -9,7 +9,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 ## Uncomment this to disable output compression
 # $wgDisableOutputCompression = true;
 
-$wgSitename = "Eltern SGH Wiki";
+$wgSitename = "Leitfaden";
 $wgMetaNamespace = "Project";
 
 ## The URL base path to the directory containing the wiki;
@@ -20,7 +20,7 @@ $wgMetaNamespace = "Project";
 $wgScriptPath = "";
 
 ## The protocol and server name to use in fully-qualified URLs
-$wgServer = "http://wiki.eltern-sgh.de";
+$wgServer = "http://leitfaden.eltern-sgh.de";
 
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
@@ -34,8 +34,8 @@ $wgLogo = "$wgResourceBasePath/resources/assets/schickhardt.jpg";
 $wgEnableEmail = false;
 $wgEnableUserEmail = true; # UPO
 
-$wgEmergencyContact = "wiki@eltern-sgh.de";
-$wgPasswordSender = "wiki@eltern-sgh.de";
+$wgEmergencyContact = "webmaster@eltern-sgh.de";
+$wgPasswordSender = "webmaster@eltern-sgh.de";
 
 $wgEnotifUserTalk = false; # UPO
 $wgEnotifWatchlist = false; # UPO
