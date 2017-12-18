@@ -103,7 +103,8 @@ Here is how to update the runtime bundles:
 
 ```bash
 $ chruby 1.9.3
-$ bundle install --without=development --without=test
+$ bundle install --without=development --with=test
+$ bundle exec rake
 $ bundle update
 ```
 
