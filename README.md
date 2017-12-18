@@ -94,3 +94,24 @@ The version of Cantao that is currently in use does not work with PHP 7. Work ar
 AddType application/x-httpd-php56 .php
 …
 ```
+
+# Development
+
+Strato only has Ruby 1.9.3 available on their machines. Thus we need to run with it, but still want to develop and test with newer Rubies.
+
+Here is how to update the runtime bundles:
+
+```bash
+$ chruby 1.9.3
+$ bundle install --without=development --without=test
+$ bundle update
+```
+
+Development and test can be done with a newer Ruby:
+
+```bash
+$ chruby 2.4.2
+$ bundle install --with=development --with=test
+$ bundle exec rake
+$ bundle update
+```
