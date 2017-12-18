@@ -11,7 +11,7 @@ jobs:
       user: ((strato.user))
       ssh_key: ((strato.ssh-key))
       pointer_file: backup/mediawiki-db/latest
-  - task: Store Backup in S3
+  - task: Store Backup in B2
     file: ci-tasks/ci/store-backup/task.yml
     params:
       endpoint: ((blobstore.endpoint))
@@ -31,19 +31,13 @@ jobs:
       user: ((strato.user))
       ssh_key: ((strato.ssh-key))
       pointer_file: backup/mediawiki-files/latest
-  - task: Store Backup in S3
+  - task: Store Backup in B2
     file: ci-tasks/ci/store-backup/task.yml
     params:
       endpoint: ((blobstore.endpoint))
       bucket: ((blobstore.bucket))
       access_key_id: ((blobstore.access-key-id))
       secret_access_key: ((blobstore.secret-access-key))
-
-  # Would rather use the S3 resource, but it seems to fail with minio
-  # see https://github.com/concourse/s3-resource/issues/23
-  # - put: blobstore
-  #   params:
-  #     file: backup/*.gz
 
 resources:
   - name: ci-tasks
@@ -56,12 +50,3 @@ resources:
   - name: nightly
     type: time
     source: {interval: 24h}
-
-  # - name: blobstore
-  #   type: s3
-  #   source:
-  #     bucket: sgh-eltern
-  #     regexp: (?P<version>\d{4}-\d{2}-\d{2}_\d{4})\.sql.gz
-  #     access_key_id: ((blobstore.access-key-id))
-  #     secret_access_key: ((blobstore.secret-access-key))
-  #     endpoint: ((blobstore.endpoint))

@@ -3,7 +3,7 @@ platform: linux
 
 image_resource:
   type: docker-image
-  source: {repository: minio/mc}
+  source: {repository: python}
 
 inputs:
   - name: ci-tasks

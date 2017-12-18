@@ -3,11 +3,15 @@
 set -e
 
 echo "Storing in $endpoint/$bucket:"
-ls backup/*
+find backup -type f
 
-mc config host add s3 "$endpoint" "$access_key_id" "$secret_access_key"
-mc cp backup/* s3/"$bucket"
+# https://www.backblaze.com/b2/docs/quick_command_line.html
+pip install --upgrade b2
+b2 authorize_account "$access_key_id" "$secret_access_key"
+
+# TODO [--delete] [--keepDays N] [--skipNewer] [--replaceNewer] \
+b2 sync backup b2:"$bucket"
 
 echo
 echo "Result:"
-mc ls s3/"$bucket"
+b2 ls --long "$bucket"
