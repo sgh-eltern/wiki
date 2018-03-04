@@ -13,5 +13,5 @@ b2 authorize_account "$access_key_id" "$secret_access_key"
 b2 sync backup b2:"$bucket"
 
 echo
-echo "Result:"
-b2 ls --long "$bucket"
+echo "Existing backups:"
+b2 ls "$bucket"
