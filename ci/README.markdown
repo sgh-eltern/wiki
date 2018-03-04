@@ -1,18 +1,12 @@
 # CI Tasks
 
+## TODO
+
+* Merge Wiki- and Ghost-Pipelines into a single one (see webservices/ci on how to do this with `spruce merge`)
+
 ## General Notes
 
 * Base image is in `Dockerfile` and automatically built on [cloud.docker.com](https://cloud.docker.com/app/sghakinternet/repository/docker/sghakinternet/wiki)
-
-* Concourse on Scaleway has issues with `fly execute` and `fly intercept`; we just use a local Concourse installation called `lite` for testing:
-
-  ```bash
-  export SSH_KEY="$(lpass show --notes SGH/ssh.strato.de)"
-  fly execute                          \
-    --target lite                      \
-    --config ci/fetch-backup/task.yml  \
-    --input ci-tasks=.                  
-  ```
 
 * Backup user authenticates with private key:
   - Keys were generated with `ssh-keygen -t rsa -b 4096 -C "backup-pipeline@eltern-sgh.de" -f id_backup-pipeline`
