@@ -1,4 +1,3 @@
 .envrc
-ci/credentials.yml
 config.yml
 deployment

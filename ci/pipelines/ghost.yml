@@ -1,3 +1,11 @@
+groups:
+- name: Ghost
+  jobs:
+  - Test sgh-eltern.de
+  - Test wiki.eltern-sgh.de
+  - Test geb-herrenberg.de
+  - Test freunde-sgh.de
+
 jobs:
   - name: Test sgh-eltern.de
     plan:

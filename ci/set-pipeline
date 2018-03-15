@@ -1,0 +1,43 @@
+#!/bin/bash -e
+
+CONCOURSE_TARGET=uh
+CONCOURSE_URL=https://ci.uhlig.it/
+PIPELINE_NAME="SGH"
+SCRIPT_PATH=$(dirname $(realpath -s $0))
+
+function login() {
+  fly \
+    login  \
+    --target "$CONCOURSE_TARGET" \
+    --team-name main \
+    --concourse-url "$CONCOURSE_URL"
+}
+
+function generate-pipeline() {
+  spruce merge "${SCRIPT_PATH}"/pipelines/{wiki,ghost}.yml > "${SCRIPT_PATH}/pipeline.yml"
+}
+
+function set-pipeline(){
+  fly \
+    set-pipeline \
+    --target "$CONCOURSE_TARGET" \
+    --pipeline="$PIPELINE_NAME" \
+    --config="${SCRIPT_PATH}/pipeline.yml" \
+    --load-vars-from="${SCRIPT_PATH}/private-config.yml"
+}
+
+function unpause() {
+  fly \
+    unpause-pipeline \
+      --target "$CONCOURSE_TARGET" \
+      --pipeline="$PIPELINE_NAME"
+}
+
+function main(){
+#  login
+  generate-pipeline
+  set-pipeline
+  unpause
+}
+
+main "${PWD}"

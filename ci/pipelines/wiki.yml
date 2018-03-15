@@ -1,3 +1,9 @@
+groups:
+- name: Wiki
+  jobs:
+  - Backup Wiki Database
+  - Backup Wiki Files
+
 jobs:
 - name: Backup Wiki Database
   plan:
