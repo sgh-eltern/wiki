@@ -3,7 +3,7 @@ platform: linux
 
 image_resource:
   type: docker-image
-  source: {repository: python}
+  source: {repository: sghakinternet/wiki}
 
 inputs:
   - name: ci-tasks
