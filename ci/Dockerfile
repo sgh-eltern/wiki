@@ -1,4 +1,3 @@
-FROM alpine:latest
-RUN apk add --no-cache openssh-client
-RUN apk add --no-cache curl
-RUN apk add --no-cache jq
+FROM python:alpine
+RUN apk add --no-cache openssh-client curl jq
+RUN pip install --upgrade b2

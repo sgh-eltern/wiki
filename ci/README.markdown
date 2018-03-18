@@ -1,9 +1,5 @@
 # CI Tasks
 
-## TODO
-
-* Merge Wiki- and Ghost-Pipelines into a single one (see webservices/ci on how to do this with `spruce merge`)
-
 ## General Notes
 
 * Base image is in `Dockerfile` and automatically built on [cloud.docker.com](https://cloud.docker.com/app/sghakinternet/repository/docker/sghakinternet/wiki)
