@@ -14,7 +14,7 @@ function login() {
 }
 
 function generate-pipeline() {
-  spruce merge "${SCRIPT_PATH}"/pipelines/{wiki,ghost}.yml > "${SCRIPT_PATH}/pipeline.yml"
+  spruce merge "${SCRIPT_PATH}"/pipelines/{ghost,eltern,freunde,geb,wiki}.yml > "${SCRIPT_PATH}/pipeline.yml"
 }
 
 function set-pipeline(){
