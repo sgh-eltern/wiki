@@ -9,7 +9,7 @@ jobs:
   - name: Backup GEB Database
     plan:
     - get: ci-tasks
-      trigger: true
+      trigger: false
     - get: nightly
       trigger: true
     - task: Fetch Latest Database Backup from Strato
@@ -29,7 +29,7 @@ jobs:
   - name: Backup GEB Files
     plan:
     - get: ci-tasks
-      trigger: true
+      trigger: false
     - get: nightly
       trigger: true
     - task: Fetch Latest File Backup from Strato
