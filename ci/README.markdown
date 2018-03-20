@@ -36,3 +36,15 @@ fly destroy-pipeline \
     --target your-alias \
     --pipeline "SGH Wiki"
 ```
+
+## Ghost Schedule
+
+          | Eltern | Wiki | Freunde | GEB
+----------|:------:|:----:|:-------:|:---:
+Monday    |   x    |   x  |    x    |
+Truesday  |   x    |   x  |    x    |  x
+Wednesday |   x    |      |    x    |  x
+Thursday  |   x    |   x  |         |  x
+Friday    |   x    |   x  |    x    |
+Saturday  |        |   x  |         |  x
+Sunday    |   x    |      |    x    |  x
