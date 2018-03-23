@@ -10,7 +10,7 @@ group :development do
 end
 
 group :test do
-  gem 'rake', '< 12.3'
+  gem 'rake', '< 12.4'
   gem 'rspec'
   gem 'timecop'
 end
