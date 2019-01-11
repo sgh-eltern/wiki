@@ -71,7 +71,7 @@ GEM
     pusher-client (0.6.2)
       json
       websocket (~> 1.0)
-    rake (12.2.1)
+    rake (12.3.2)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
@@ -113,7 +113,7 @@ DEPENDENCIES
   guard-bundler
   guard-rspec
   pry-byebug
-  rake (< 12.3)
+  rake (< 12.4)
   rspec
   timecop
   travis
