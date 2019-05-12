@@ -1,7 +1,5 @@
 # MediaWiki at Strato
 
-[![Build Status](https://travis-ci.org/sgh-eltern/wiki.svg?branch=master)](https://travis-ci.org/sgh-eltern/wiki)
-
 # Manual Installation
 
 1. `ssh eltern-sgh.de@ssh.strato.de` and
@@ -15,30 +13,13 @@
     * In _Domains / Domainverwaltung_, map domain `wiki.eltern-sgh.de` to `/mediawiki` (Strato lists this as "Umleitung: (Intern) /mediawiki/")
     * In _Datenbanken und Webspace / PHP-Version einstellen_, switch the PHP version to `7.1`
 
-1. Generate and upload LocalSettings.php (see [Deployment](#deployment) below).
+1. Generate and upload LocalSettings.php (see [ci](https://github.com/sgh-eltern/ci#deployment)).
 
 1. Follow the [MediaWiki install wizard](http://wiki.eltern-sgh.de):
 
     - Create a MediaWiki admin account. Store credentials in LastPass.
     - Set User rights profile to Authorized editors only
     - Upload the [logo](assets/schickhardt.jpg)
-
-# Deployment
-
-* `git clone` this repository
-* Copy `sample-config.yml` to `config.yml` and fill in the values (check Lastpass)
-* Get a recent Ruby and install bundler in it
-* Run `bundle exec rake deploy` to generate the scripts and config into the `deployment` folder and deploy them to the Strato box.
-
-# Backup
-
-## Database
-
-Strato does this for us; use `mysqlbackups "${source_db}"` to see a list.
-
-## Filesystem
-
-`~/bin/backup-wiki.sh` is scheduled as cron job via the web interface
 
 # Restore
 
@@ -61,28 +42,6 @@ Pipe the most recent snapshot into the new DB that we use for restore. This is s
 
 If this is a real disaster recovery and not just a fire drill, just restore to the original database credentials and do not modify the `LocalSettings.php` after untaring it.
 
-# Backup Rotation
-
-Strategy:
-
-1. If there is no backup for today yet, create it and put it into `backup/daily`
-1. Delete files older than 7 days from `backup/daily`, so that we keep daily backups of the last seven days
-
-1. If it is the last day of the week, copy the backup into `backup/weekly`, too
-1. Delete files older than one month from `backup/weekly`, so that we keep weekly backups of the last month
-
-1. If it is the last day of the month, copy the backup into `backup/monthly`, too
-1. Delete files older than three months from `backup/monthly`, so that we keep monthly backups of the last three months
-
-1. If it is the last day of the year, copy the backup into `backup/yearly`, too
-1. Delete files older than 10 years from `backup/yearly`, so that we keep yearly backups of the last ten years
-
-In bash, deletion would be something like this:
-
-```bash
-find `backup/monthly`/*.gz -maxdepth 1 -type f -mtime +92 -delete
-```
-
 # Compatibility
 
 ## Force Cantao to PHP 5.6
@@ -93,26 +52,4 @@ The version of Cantao that is currently in use does not work with PHP 7. Work ar
 # Force Strato's PHP to 5.6
 AddType application/x-httpd-php56 .php
 …
-```
-
-# Development
-
-Strato only has Ruby 1.9.3 available on their machines. Thus we need to run with it, but still want to develop and test with newer Rubies.
-
-Here is how to update the runtime bundles:
-
-```bash
-$ chruby 1.9.3
-$ bundle install --without=development --with=test
-$ bundle exec rake
-$ bundle update
-```
-
-Development and test can be done with a newer Ruby:
-
-```bash
-$ chruby 2.4.2
-$ bundle install --with=development --with=test
-$ bundle exec rake
-$ bundle update
 ```
