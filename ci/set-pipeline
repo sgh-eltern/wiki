@@ -11,7 +11,7 @@ main(){
 }
 
 generate-pipeline() {
-  spruce merge "${SCRIPT_PATH}"/pipelines/{eltern,freunde,geb,wiki}.yml > "${SCRIPT_PATH}/pipeline.yml"
+  spruce merge "${SCRIPT_PATH}"/pipelines/{eltern,freunde,geb,geb-wp,wiki}.yml > "${SCRIPT_PATH}/pipeline.yml"
 }
 
 set-pipeline(){

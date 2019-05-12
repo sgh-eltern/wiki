@@ -142,3 +142,11 @@ backup_db \
   "<%= config['geb3']['source_user'] %>" \
   "<%= config['geb3']['source_password'] %>" \
   backup/geb3-db
+
+backup_files geb-wp backup/geb-wp-files
+backup_db \
+  geb-wp \
+  "<%= config['geb-wp']['source_db'] %>" \
+  "<%= config['geb-wp']['source_user'] %>" \
+  "<%= config['geb-wp']['source_password'] %>" \
+  backup/geb-wp-db
